@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>商品一覧画面</title>
+</head>
+<body>
+	<form method="POST" action="/Cart">
+		<h1>★商品一覧★</h1>
+		<table cellpadding="10">
+			<thead>
+				<tr>
+					<th>商品No.</th>
+					<th>商品名</th>
+					<th>価格</th>
+					<th>個数</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item: ${itemList}">
+					<td th:text="${item.getItemId()}"></td>
+					<td th:text="${item.getName()}"></td>
+					<td th:text="${item.getPrice()}"></td>
+					<td><select id="num" name="num">
+							<option th:each="num : ${num}" th:value="${num}" th:text="${num}"></option>
+					</select></td>
+				</tr>
+				<td class="button"><input type="submit" name="addCart"
+					value="カートに追加"></td>
+
+			</tbody>
+		</table>
+
+		<h1>★買い物リスト★</h1>
+		<table cellpadding="10">
+			<thead>
+				<tr>
+					<th>商品</th>
+					<th>個数</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="cart: ${Cart}">
+					<td th:text="${cart.setItemId()}"></td>
+					<td th:text="${cart.setNum()}"></td>
+					<td><select id="num" num="num">
+							<option th:each="num : ${num}" th:value="${num}"></option>
+					</select></td>
+				</tr>
+
+			</tbody>
+			<th:block th:if="${addCart} and ''!=${addCart}">
+				<td th:text=カート内に商品はありません></td>
+				<br />
+				<br /> [[${addCart}]]<br />
+				<p th:text="${addCart}"></p>
+				<td th:text="'&yen;' + ${totalPrice}"></td>
+			</th:block>
+			</form>
+
+</body>
+</html>
